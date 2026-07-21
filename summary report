@@ -26,3 +26,18 @@ Total visibility points: 639,428,304
 Flagged visibility points: 36,215,060
 Flagged fraction:5.66%
 The flagged fraction is relatively low, indicating that the data quality is good and suitable for self-calibration.
+CASA <5>: print("first phase only self calibration")
+first phase only self calibration
+
+CASA <6>: print("first model")
+first model
+
+CASA <7>: default(tclean)
+
+CASA <8>: tclean(vis='NGC3079_new.ms',datacolumn='data',imagename='NGC3079_new.p
+        ⋮ 0',specmode='mfs',nchan=-1,nterms=2,niter=50000,gain=0.1,gridder='wide
+        ⋮ field',wprojplanes=-1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,
+        ⋮ 30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',proj
+        ⋮ ection='SIN',threshold='0.5mJy',weighting='briggs',robust=0.5,usemask=
+        ⋮ 'user',savemodel='modelcolumn')
+
