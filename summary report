@@ -1,0 +1,28 @@
+21 july 2026
+### Self-Calibration Preparation
+
+* Used the calibrated measurement set `NGC3079_B4_1168.ms`.
+* Split only the target field (NGC3079) from the corrected data and created a new file named `NGC3079_new.ms`.
+* Used `width=7` for channel averaging to reduce the data size.
+* Ran `listobs` to check that the new measurement set was created correctly and contains only the target source.
+* Ran `flagdata(mode='summary')` to check the amount of flagged data. About **5.7%** of the data is flagged, which is acceptable.
+* The new measurement set is now ready for the first round of self-calibration.
+code:
+CASA <1>: default(split)
+
+CASA <2>: split(vis='NGC3079_B4_1168.ms', outputvis='NGC3079_new.ms', datacolumn
+        ⋮ ='corrected', field='2', spw='', keepflags=False, width=7)
+CASA <3>: listobs('NGC3079_new.ms')
+CASA <4>: flagdata(vis='NGC3079_new.ms', mode='summary')
+Results:
+Measurement Set: NGC3079_new.ms
+Number of fields: 1
+Target field: NGC3079
+Number of records: 957,228
+One spectral window present.
+Six target scans were retained.
+Results:
+Total visibility points: 639,428,304
+Flagged visibility points: 36,215,060
+Flagged fraction:5.66%
+The flagged fraction is relatively low, indicating that the data quality is good and suitable for self-calibration.
