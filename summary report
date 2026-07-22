@@ -40,4 +40,23 @@ CASA <8>: tclean(vis='NGC3079_new.ms',datacolumn='data',imagename='NGC3079_new.p
         ⋮ 30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',proj
         ⋮ ection='SIN',threshold='0.5mJy',weighting='briggs',robust=0.5,usemask=
         ⋮ 'user',savemodel='modelcolumn')
+CASA <9>: exportfits(imagename='NGC3079_new.p0.image.tt0',
+     ...:            fitsimage='NGC3079_new.p0.fits',
+     ...:            overwrite=True)
+
+CASA <10>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.p0.ms")
+Out[10]: 0
+
+CASA <11>: imstat('NGC3079_new.p0.image.tt0')
+Out[11]: 
+CASA <12>: imstat('NGC3079_new.p0.residual.tt0')
+CASA <13>: imview('NGC3079_new.p0.image.tt0')
+CASA <14>: imview('NGC3079_new.p0.residual.tt0')
+Result:
+P0 imaging was completed successfully.
+The image has a peak intensity of 0.324 Jy/beam and a total flux of about 2.56 Jy. 
+The image RMS is 0.532 mJy, while the residual RMS is 0.182 mJy. 
+Most of the strong emission has been cleaned. The off-source RMS, measured in different source-free regions, varies between 0.07 and 0.15 mJy/beam. 
+The P0 model is good enough to start the first phase-only self-calibration (P1)
+
 
