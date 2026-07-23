@@ -58,14 +58,30 @@ The image has a peak intensity of 0.324 Jy/beam and a total flux of about 2.56 J
 The image RMS is 0.532 mJy, while the residual RMS is 0.182 mJy. 
 Most of the strong emission has been cleaned. The off-source RMS, measured in different source-free regions, varies between 0.07 and 0.15 mJy/beam. 
 The P0 model is good enough to start the first phase-only self-calibration (P1)
+CASA <15>: default(gaincal)
+
+CASA <16>: gaincal(vis='NGC3079_new.ms',caltable='NGC3079_new.p2.cal',selectda
+         ⋮ ta=False,solint='8min',refant='C01',refantmode='strict',minblperant
+         ⋮ =6,spw='0:7~150',minsnr=3.0,solnorm=False,gaintype='G',calmode='p',
+         ⋮ append=False,uvrange='>0.75klambda',parang=False)
 
 
+CASA <17>: applycal(vis='NGC3079_new.ms',selectdata=False,gaintable='NGC3079_n
+         ⋮ ew.p1.cal',parang=False,calwt=False,applymode='calflag',flagbackup=
+         ⋮ True)
+
+CASA <16>: default(tclean)
+
+CASA <18>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC30
+         ⋮ 79_new.p1',specmode='mfs',nchan=-1,nterms=2,niter=120000,cycleniter
+         ⋮ =1000,gain=0.1,smallscalebias=0.6,gridder='widefield',wprojplanes=-
+         ⋮ 1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=T
+         ⋮ rue,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',t
+         ⋮ hreshold='0.3mJy',weighting='briggs',robust=0.5,usemask='user',mask
+         ⋮ ='NGC3079_new.p0.mask',savemodel='modelcolumn')
 
 
-
-
-
-ASA <28>: exportfits(imagename='NGC3079_new.p1.image.tt0',fitsimage='NGC3079_new.p1.fits',overwrite=True)
+CASA <28>: exportfits(imagename='NGC3079_new.p1.image.tt0',fitsimage='NGC3079_new.p1.fits',overwrite=True)
 
 CASA <29>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.p1.ms")
 Out[29]: 0
@@ -141,3 +157,29 @@ A total of 77,763,955 out of 639,428,304 visibilities were flagged (~12.2% of th
 This amount of flagging is acceptable for the next self-calibration cycle.
 The cleaning stopped after reaching the 0.3 mJy threshold, showing that the first phase self-calibration was successful and improved the image quality.
 
+CASA <12>: default(gaincal)
+
+CASA <13>: gaincal(vis='NGC3079_new.ms',caltable='NGC3079_new.p2.cal',selectda
+         ⋮ ta=False,solint='8min',refant='C01',refantmode='strict',minblperant
+         ⋮ =6,spw='0:7~150',minsnr=3.0,solnorm=False,gaintype='G',calmode='p',
+         ⋮ append=False,uvrange='>0.75klambda',parang=False)
+Out[13]: 
+2 Gain Calibration Report:
+The second phase self-calibration (8 min) was completed successfully. 
+The reference antenna C01 was used throughout the calibration. 
+All 23 solution intervals met the minimum SNR and baseline requirements, indicating stable and reliable phase solutions. 
+Only a few antennas had slightly fewer valid solutions due to previously flagged data, but the overall calibration quality is good.
+CASA <14>: default(applycal)
+
+CASA <15>: applycal(vis='NGC3079_new.ms',selectdata=False,gaintable='NGC3079_n
+         ⋮ ew.p2.cal',parang=False,calwt=False,applymode='calflag',flagbackup=
+         ⋮ True)
+CASA <16>: default(tclean)
+
+CASA <17>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC30
+         ⋮ 79_new.p2',specmode='mfs',nchan=-1,nterms=2,niter=120000,cycleniter
+         ⋮ =1000,gain=0.1,smallscalebias=0.6,gridder='widefield',wprojplanes=-
+         ⋮ 1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=T
+         ⋮ rue,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',t
+         ⋮ hreshold='0.2mJy',weighting='briggs',robust=0.5,usemask='user',mask
+         ⋮ ='NGC3079_new.p1.mask',savemodel='modelcolumn')
