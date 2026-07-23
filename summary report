@@ -60,3 +60,21 @@ Most of the strong emission has been cleaned. The off-source RMS, measured in di
 The P0 model is good enough to start the first phase-only self-calibration (P1)
 
 
+
+
+
+
+
+ASA <28>: exportfits(imagename='NGC3079_new.p1.image.tt0',fitsimage='NGC3079_new.p1.fits',overwrite=True)
+
+CASA <29>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.p1.ms")
+Out[29]: 0
+
+CASA <30>: imstat('NGC3079_new.p1.image.tt0')
+CASA <31>: imstat('NGC3079_new.p1.residual.tt0')
+P1 Phase Self-Calibration Report:
+After applying the first phase self-calibration (16 min), the image quality improved. 
+The peak intensity increased from 0.324 Jy/beam to 0.371 Jy/beam, while the residual RMS decreased from 0.182 mJy/beam to 0.145 mJy/beam. 
+The maximum residual also decreased from 12.7 mJy to 6.45 mJy. The total flux changed only slightly (2.562 Jy → 2.617 Jy), indicating that the source flux was preserved. 
+The cleaning stopped after reaching the 0.3 mJy threshold, showing that the first phase self-calibration was successful and improved the image quality.
+
