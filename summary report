@@ -76,5 +76,68 @@ P1 Phase Self-Calibration Report:
 After applying the first phase self-calibration (16 min), the image quality improved. 
 The peak intensity increased from 0.324 Jy/beam to 0.371 Jy/beam, while the residual RMS decreased from 0.182 mJy/beam to 0.145 mJy/beam. 
 The maximum residual also decreased from 12.7 mJy to 6.45 mJy. The total flux changed only slightly (2.562 Jy → 2.617 Jy), indicating that the source flux was preserved. 
+CASA <1>: default(flagdata)
+
+CASA <2>: flagdata(vis='NGC3079_new.ms',mode='clip',clipminmax=[0.0,10.0],dataco
+        ⋮ lumn='RESIDUAL_DATA',clipoutside=True,clipzeros=True,extendpols=False,
+        ⋮ action='apply',flagbackup=True,savepars=False,overwrite=True,writeflag
+        ⋮ s=True)
+Out[2]: {}
+
+     ...: antnames=[]
+     ...: for i in range(0,30):
+     ...:     antnames.append(msmd.antennanames(i)[0])
+     ...: msmd.done()
+     ...: 
+     ...: baselines=[]
+     ...: for j in range(len(antnames)):
+     ...:     for k in range(len(antnames)):
+     ...:         if k>j:
+     ...:             baselines.append(antnames[j]+'&'+antnames[k])
+     ...: 
+     ...: ccant=[]
+     ...: carmant=[]
+     ...: for i in range(len(baselines)):
+     ...:     if baselines[i].count('C')==2:
+     ...:         ccant.append(baselines[i])
+     ...:     else:
+     ...:         carmant.append(baselines[i])
+     ...: 
+     ...: shortbls=[]
+     ...: shortbls.append('; '.join(ccant))
+     ...: 
+     ...: longbls=[]
+     ...: longbls.append('; '.join(carmant))
+
+CASA <4>: print(shortbls[0])
+CASA <5>: print(longbls[0])
+CASA <6>: default(flagdata)
+
+CASA <7>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',
+        ⋮ antenna=shortbls[0],ntime='scan',extendflags=False,timedevscale=6.0,fr
+        ⋮ eqdevscale=6.0,spectralmax=1e6,growaround=False,flagneartime=False,fla
+        ⋮ gnearfreq=False,action='apply',flagbackup=True,overwrite=True,writefla
+        ⋮ gs=True)
+Out[7]: {}
+
+CASA <8>: default(flagdata)
+
+CASA <9>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',
+        ⋮ antenna=longbls[0],ntime='scan',extendflags=False,timedevscale=5.0,fre
+        ⋮ qdevscale=5.0,spectralmax=1e6,growaround=False,flagneartime=False,flag
+        ⋮ nearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflag
+        ⋮ s=True)
+Out[9]: {}
+
+CASA <10>: default(flagdata)
+
+CASA <11>: flagdata(vis='NGC3079_new.ms',mode='summary',datacolumn='RESIDUAL_DAT
+         ⋮ A',extendflags=False,name='NGC3079_new.temp.summary.p1',action='apply
+         ⋮ ',flagbackup=True,overwrite=True,writeflags=True)
+Out[11]: 
+Residual-based flagging after P1:
+After the first phase self-calibration, clip and rflag were applied on the residual data. 
+A total of 77,763,955 out of 639,428,304 visibilities were flagged (~12.2% of the data). 
+This amount of flagging is acceptable for the next self-calibration cycle.
 The cleaning stopped after reaching the 0.3 mJy threshold, showing that the first phase self-calibration was successful and improved the image quality.
 
