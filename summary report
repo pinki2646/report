@@ -183,3 +183,73 @@ CASA <17>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC30
          ⋮ rue,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',t
          ⋮ hreshold='0.2mJy',weighting='briggs',robust=0.5,usemask='user',mask
          ⋮ ='NGC3079_new.p1.mask',savemodel='modelcolumn')
+CASA <18>: exportfits(imagename='NGC3079_new.p2.image.tt0',fitsimage='NGC3079_
+         ⋮ new.p2.fits',overwrite=True)
+
+CASA <19>: os.system("cp -r NGC3079_new.ms NGC3079_new.p2.ms")
+Out[19]: 0
+
+CASA <20>: imstat('NGC3079_new.p2.image.tt0')
+CASA <21>: imstat('NGC3079_new.p2.residual.tt0')
+CASA <25>: default(flagdata)
+
+CASA <26>: flagdata(vis='NGC3079_new.ms',mode='clip',clipminmax=[0.0,10.0],datacolumn='RESIDUAL_DATA',clipoutside=True,clipzeros=True,extendpols=False,action='apply',flagbackup=True,sa
+         ⋮ vepars=False,overwrite=True,writeflags=True)
+Out[26]: {}
+CASA <29>: default(flagdata)
+
+CASA <30>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',antenna=shortbls[0],ntime='scan',extendflags=False,timedevscale=6.0,freqdevscale=6.0,spectralmax=1e6,gr
+         ⋮ owaround=False,flagneartime=False,flagnearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflags=True)
+Out[30]: {}
+
+CASA <31>: default(flagdata)
+
+CASA <32>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',antenna=longbls[0],ntime='scan',extendflags=False,timedevscale=5.0,freqdevscale=5.0,spectralmax=1e6,gro
+         ⋮ waround=False,flagneartime=False,flagnearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflags=True)
+Out[32]: {}
+
+CASA <33>: default(flagdata)
+
+CASA <34>: flagdata(vis='NGC3079_new.ms',mode='summary',datacolumn='RESIDUAL_DATA',extendflags=False,name='NGC3079_new.temp.summary.p2',action='apply',flagbackup=True,overwrite=True,wr
+         ⋮ iteflags=True)
+Out[34]: 
+The cleaning converged successfully at the specified threshold.
+
+Image Statistics
+Total Flux Density: 2.820 Jy
+Peak Intensity: 0.389 Jy beam⁻¹
+Image RMS: 0.552 mJy beam⁻¹
+Residual Statistics
+Residual RMS: 0.121 mJy beam⁻¹
+Maximum Residual: 6.15 mJy beam⁻¹
+
+Compared with the previous (P1) image, the total flux increased from 2.617 Jy to 2.820 Jy, while the residual RMS improved from 0.145 mJy beam⁻¹ to 0.121 mJy beam⁻¹, indicating better calibration and deconvolution.
+The total flagged data increased from
+
+77,763,955 samples (12.16%)
+
+to
+
+82,468,954 samples (12.90%)
+
+Thus, only about 0.74% additional data were flagged, indicating moderate residual RFI removal without significant loss of useful visibility data.
+CASA <35>: default(gaincal)
+
+CASA <36>: gaincal(vis='NGC3079_new.ms',caltable='NGC3079_new.p3.cal',selectdata=False,solint='4min',refant='C01',refantmode='strict',minblperant=6,spw='0:7~150',minsnr=3.0,solnorm=Fal
+         ⋮ se,gaintype='G',calmode='p',append=False,uvrange='>0.75klambda',parang=False)
+Out[36]: 
+Performed third round of phase-only self-calibration (P3) using gaincal.
+Gain solutions were successfully obtained for almost all active antennas.
+The reference antenna worked correctly and no major solution failures were found.
+Most antennas have 41/41 valid solutions, indicating stable phase calibration.
+A few antennas (e.g., antenna 9 and 25) have fewer solutions because of previously flagged data, but they still produced reliable solutions.
+The calibration table NGC3079_new.p3.cal was created successfully.
+CASA <43>: default(tclean)
+
+CASA <44>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.p3',specmode='mfs',nchan=-1,nterms=2,niter=160000,cycleniter=1000,gain=0.1,smallscalebias=0.6,gr
+         ⋮ idder='widefield',wprojplanes=-1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',threshold
+         ⋮ ='0.1mJy',weighting='briggs',robust=0.5,usemask='user',mask='NGC3079_new.p2.mask',savemodel='modelcolumn')
+2026-07-24 10:30:07 WARN ImageRegridder	At least one of the images exceeds one degree on at one side, not checking for direction plane overlap.
+mage size:5120 × 5120
+cell = 1 arcsec
+field of view ≈ 5120 arcsec ≈ 1.42°
