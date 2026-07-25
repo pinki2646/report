@@ -253,3 +253,19 @@ CASA <44>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079
 mage size:5120 × 5120
 cell = 1 arcsec
 field of view ≈ 5120 arcsec ≈ 1.42°
+CASA <45>: exportfits(imagename='NGC3079_new.ms.p3.image.tt0',fitsimage='NGC3079_new.ms.p3.fits',overwrite=True)
+
+CASA <46>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.p3.ms")
+Out[46]: 0
+Short Report (P3 Imaging)
+Applied P3 phase calibration and re-imaged using tclean with datacolumn='corrected'.
+Used the previous mask (NGC3079_new.p2.mask) successfully.
+Imaging reached the iteration limit (160000).
+Final peak residual ≈ 0.103 mJy/beam, close to the target threshold of 0.1 mJy/beam.
+Model flux converged to ≈ 2.97 Jy, indicating a stable CLEAN model.
+P3 Summary
+Peak Flux: 0.3946 Jy/beam
+Total Flux: 2.887 Jy
+Residual RMS (σ): 0.109 mJy/beam
+Residual Peak: 4.18 mJy
+Image RMS: 0.554 mJy/beam
