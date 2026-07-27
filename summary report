@@ -283,4 +283,27 @@ CASA <58>: default(tclean)
 CASA <59>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.p4',specmode='mfs',nchan=-1,nterms=2,niter=320000,cycleniter=1000,gain=0.1,smallscalebias=0.6,gr
          ⋮ idder='widefield',wprojplanes=-1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',threshold
          ⋮ ='0.07mJy',weighting='briggs',robust=0.5,usemask='user',mask='NGC3079_new.ms.p3.mask',savemodel='modelcolumn')
+CASA <60>: exportfits(imagename='NGC3079_new.ms.p4.image.tt0',fitsimage='NGC3079_new.ms.p4.fits',overwrite=True)
+
+CASA <61>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.p4.ms")
+Out[61]: 0
+
+CASA <62>: imstat('NGC3079_new.ms.p4.image.tt0')
+Out[62]:
+CASA <63>: imstat('NGC3079_new.ms.p4.residual.tt0')
+Out[63]:
+clean
+Threshold: 0.07 mJy (as planned)
+Maximum niter: 320000
+Stopping criterion: Threshold reached (stopcode = 2)
+Cleaning stopped automatically after 296,937 iterations because the target threshold was achieved.
+Image Statistics
+Integrated Flux: 2.8834 Jy
+Peak Intensity: 397.20 mJy/beam
+Image RMS: 0.5558 mJy/beam
+Residual Statistics
+Residual RMS: 0.1077 mJy/beam
+Maximum residual: 4.277 mJy/beam
+Minimum residual: −4.615 mJy/beam
+source off rms:.068mjy
 
