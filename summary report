@@ -307,3 +307,54 @@ Maximum residual: 4.277 mJy/beam
 Minimum residual: −4.615 mJy/beam
 source off rms:.068mjy
 
+P4 phase self-calibration was successful. 
+The target threshold (0.07 mJy) was reached, the residual RMS decreased slightly (0.109 → 0.108 mJy/beam), and the source flux remained stable (~2.88 Jy), indicating that the calibration converged well without introducing significant flux errors. 
+This is a good final phase self-calibration image and is suitable for proceeding to the first amplitude+phase (ap0) self-calibration round.
+CASA <67>: default(flagdata)
+
+CASA <68>: flagdata(vis='NGC3079_new.ms',mode='clip',spw='',field='',clipminmax=[0.0,10.0],datacolumn='RESIDUAL_DATA',clipoutside=True,clipzeros=True,extendpols=False,action='apply',fl
+         ⋮ agbackup=True,savepars=False,overwrite=True,writeflags=True)
+Out[68]: {}
+CASA <72>: default(flagdata)
+
+CASA <73>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',antenna=shortbls[0],ntime='scan',extendflags=False,timedevscale=6.0,freqdevscale=6.0,spectralmax=1e6,gr
+         ⋮ owaround=False,flagneartime=False,flagnearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflags=True)
+Out[73]: {}
+
+CASA <74>: default(flagdata)
+
+CASA <75>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',antenna=longbls[0],ntime='scan',extendflags=False,timedevscale=5.0,freqdevscale=5.0,spectralmax=1e6,gro
+         ⋮ waround=False,flagneartime=False,flagnearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflags=True)
+CASA <77>: flagdata(vis='NGC3079_new.ms',mode='summary',datacolumn='RESIDUAL_DATA',extendflags=False,name='NGC3079_new.mstemp.summaryp4',action='apply',flagbackup=True,overwrite=True,w
+         ⋮ riteflags=True)
+Residual-data Clip + RFLAG + Summary
+
+Total visibilities: 639,428,304
+Flagged visibilities: 85,228,509
+Overall flagged fraction: 13.33%
+CASA <78>: default(gaincal)
+
+CASA <79>: gaincal(vis='NGC3079_new.ms',caltable='NGC3079_new.ap1.cal',selectdata=False,solint='4min',refant='C01',refantmode='strict',spw='0:7~150',minblperant=6,minsnr=3.0,solnorm=Tr
+         ⋮ ue,gaintype='G',calmode='ap',append=False,uvrange='>0.75klambda',parang=False)
+Report (ap1)
+Solution interval: 4 min (Amp+Phase)
+Calmode: ap (amplitude + phase)
+Reference antenna: C01
+All expected solutions: 41/41
+Above minimum SNR: 41/41 (100%)
+Above minimum baselines: 41/41 (100%)
+C09: 30/34
+C25: 31/34
+C03, S02, S04- flagged
+CASA <80>: default(applycal)
+
+CASA <81>: applycal(vis='NGC3079_new.ms',selectdata=False,gaintable='NGC3079_new.ap1.cal',parang=False,calwt=False,applymode='calflag',flagbackup=True)
+
+CASA <82>: default(tclean)
+
+CASA <83>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.ap1',specmode='mfs',nchan=-1,nterms=2,niter=320000,cycleniter=2000,gain=0.1,gridder='widefield',
+         ⋮ wprojplanes=-1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',threshold='0.10mJy',weighti
+         ⋮ ng='briggs',robust=0.5,usemask='user',mask='NGC3079_new.ms.p4.mask',savemodel='modelcolumn')
+
+
+
