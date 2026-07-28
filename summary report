@@ -355,6 +355,79 @@ CASA <82>: default(tclean)
 CASA <83>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.ap1',specmode='mfs',nchan=-1,nterms=2,niter=320000,cycleniter=2000,gain=0.1,gridder='widefield',
          ⋮ wprojplanes=-1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',threshold='0.10mJy',weighti
          ⋮ ng='briggs',robust=0.5,usemask='user',mask='NGC3079_new.ms.p4.mask',savemodel='modelcolumn')
+CASA <84>: exportfits(imagename='NGC3079_new.ms.ap1.image.tt0',fitsimage='NGC3079_new.ms.ap1.fits',overwrite=True)
+
+CASA <85>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.ap1.ms")
+Out[85]: 0
+
+CASA <86>: 
+
+
+tclean
+Round: ap1 (Amplitude + Phase)
+Threshold: 0.10 mJy
+Stopped by: Threshold reached (not by iteration limit)
+Iterations used: 165,754 / 320,000
+Image Statistics
+Peak: 396.97 mJy/beam
+Total Flux: 2.968 Jy
+Image RMS: 0.554 mJy/beam
+Residual Statistics
+Residual RMS: 0.0925 mJy/beam ⬇️ (improved from p4: 0.1077 mJy)
+Maximum Residual: 2.85 mJy ⬇️ (improved from p4: 4.28 mJy)
+Conclusion
+
+ap1 successfully improved the image.
+
+Residual RMS decreased by ~14%.
+Peak residual reduced significantly.
+Image quality is noticeably better than p4.
+Ready for ap2 (if you want one final amplitude+phase self-cal round).
+source of residual =.067mjy
+CASA <90>: default(flagdata)
+
+CASA <91>: flagdata(vis='NGC3079_new.ms',mode='clip',datacolumn='RESIDUAL_DATA',clipminmax=[0.0,10.0],clipoutside=True,clipzeros=True,extendpols=False,action='apply',flagbackup=True,sa
+         ⋮ vepars=False,overwrite=True,writeflags=True)
+Out[91]: {}
+
+CASA <92>: default(flagdata)
+
+CASA <93>: print(longbls[0])
+CASA <94>: print(shortbls[0])
+CASA <95>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',antenna=shortbls[0],ntime='scan',extendflags=False,timedevscale=6.0,freqdevscale=6.0,spectralmax=1e6,gr
+         ⋮ owaround=False,flagneartime=False,flagnearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflags=True)
+Out[95]: {}
+
+CASA <96>: default(flagdata)
+
+CASA <97>: flagdata(vis='NGC3079_new.ms',mode='rflag',datacolumn='RESIDUAL_DATA',antenna=longbls[0],ntime='scan',extendflags=False,timedevscale=5.0,freqdevscale=5.0,spectralmax=1e6,gro
+         ⋮ waround=False,flagneartime=False,flagnearfreq=False,action='apply',flagbackup=True,overwrite=True,writeflags=True)
+CASA <98>: default(flagdata)
+
+CASA <99>: flagdata(vis='NGC3079_new.ms',mode='summary',datacolumn='RESIDUAL_DATA',extendflags=False,name='NGC3079_new.mstemp.summaryap2',action='apply',flagbackup=True,overwrite=True,
+         ⋮ writeflags=True)
+Residual RFLAG Report (AP2)
+Flagging mode: clip + rflag on RESIDUAL_DATA
+Measurement Set: NGC3079_new.ms
+Summary file: NGC3079_new.mstemp.summaryap2
+Overall Flagging
+Total visibilities: 639,428,304
+Flagged visibilities: 85,613,456
+Overall flagged fraction: 13.39%
+CASA <100>: default(gaincal)
+
+CASA <101>: gaincal(vis='NGC3079_new.ms',caltable='NGC3079_new.ap2.cal',selectdata=False,solint='2min',refant='C01',refantmode='strict',spw='0:7~150',minblperant=6,minsnr=3.0,solnorm=T
+          ⋮ rue,gaintype='G',calmode='ap',append=False,parang=False)
+Calibration table NGC3079_new.ap2.cal was created successfully.
+All 77 expected solutions were obtained (77/77), indicating excellent calibration.
+All usable antennas met both the minimum baseline and minimum SNR requirements.
+C01 was successfully used as the reference antenna for all solutions (used_as_refant = 77).
+No widespread calibration failures are present.
+Antennas C00, C03, S02, S04 remain fully flagged (already excluded earlier).
+Antennas W02, C10, W01, C05, C09 still have relatively higher flagging, while W03, W04, E04, E06 remain among the least flagged antennas.
+
+
+
 
 
 
