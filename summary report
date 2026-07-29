@@ -61,7 +61,7 @@ The P0 model is good enough to start the first phase-only self-calibration (P1)
 CASA <15>: default(gaincal)
 
 CASA <16>: gaincal(vis='NGC3079_new.ms',caltable='NGC3079_new.p2.cal',selectda
-         ⋮ ta=False,solint='8min',refant='C01',refantmode='strict',minblperant
+         ⋮ ta=False,solint='16min',refant='C01',refantmode='strict',minblperant
          ⋮ =6,spw='0:7~150',minsnr=3.0,solnorm=False,gaintype='G',calmode='p',
          ⋮ append=False,uvrange='>0.75klambda',parang=False)
 
