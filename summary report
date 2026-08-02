@@ -464,7 +464,55 @@ CASA <118>: default(tclean)
 CASA <119>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.ap3',specmode='mfs',nchan=-1,nterms=2,niter=350000,cycleniter=4000,gain=0.1,gridder='widefield'
           ⋮ ,wprojplanes=-1,pblimit=-1.0,deconvolver='mtmfs',scales=[0,5,15,30],interactive=True,imsize=[5120,5120],cell='1arcsec',stokes='I',projection='SIN',threshold='0.05mJy',weigh
           ⋮ ting='briggs',robust=0.5,usemask='user',mask='NGC3079_new.ms.ap2.mask',savemodel='modelcolumn')
+CASA <120>: exportfits(
+       ...:     imagename='NGC3079_new.ms.ap3.image.tt0',
+       ...:     fitsimage='NGC3079_new.ms.ap3.fits',
+       ...:     overwrite=True
+       ...: )
 
+CASA <121>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.ap3.ms")
+Out[121]: 0
+
+CASA <122>: imstat('NGC3079_new.ms.ap3.image.tt0')
+result:AP3 Imaging (tclean)
+
+The corrected data were imaged using the tclean task with the MT-MFS deconvolver, Briggs weighting (robust = 0.5), and a 0.05 mJy beam⁻¹ cleaning threshold. 
+Imaging was performed with an image size of 5120 × 5120 pixels, a 1 arcsec cell size, and multi-scale CLEAN using scales of [0, 5, 15, 30]. 
+The AP2 CLEAN mask was reused during imaging. The CLEAN process reached the maximum iteration limit (350,000 iterations) while converging close to the specified threshold. 
+The final image has a total flux density of 2.981 Jy, a peak intensity of 0.402 Jy beam⁻¹, an image RMS of 0.563 mJy beam⁻¹, and a residual RMS of 0.091 mJy beam⁻¹, indicating a well-converged image with reduced residual artifacts suitable for further scientific analysis.
+source of rms:.05mjy
+CASA <126>: default(tclean)
+
+CASA <127>: print("Creating Stokes Q image")
+Creating Stokes Q image
+
+CASA <128>: tclean(vis='NGC3079_new.ms',selectdata=True,datacolumn='corrected',imagename='NGC3079_new.ms.ap3_Q',imsize=[5120,5120],cell='1arcsec',stokes='Q',projection='SIN',specmode='
+          ⋮ mfs',reffreq='',nchan=-1,gridder='widefield',wprojplanes=-1,pblimit=-1,deconvolver='mtmfs',scales=[0,5,15,30],pbcor=False,gain=0.1,weighting='briggs',robust=0.5,niter=50000
+          ⋮ 0,threshold='0.005mJy',cycleniter=-1,interactive=False,usemask='user',mask='NGC3079_new.ms.ap3.mask',savemodel='none')
+
+CASA <129>: exportfits(imagename='NGC3079_new.ms.ap3_Q.image.tt0',fitsimage='NGC3079_new.ms.ap3_Q.fits',overwrite=True)
+
+CASA <130>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.ap3.ms")
+Out[130]: 0
+
+CASA <131>: imstat('NGC3079_new.ms.ap3_Q.image.tt0')
+Out[131]: 
+CASA <133>: default(tclean)
+
+CASA <134>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.ap3_U',imsize=[5120,5120],cell='1arcsec',stokes='U',projection='SIN',specmode='mfs',nchan=-1,gr
+          ⋮ idder='widefield',wprojplanes=-1,pblimit=-1.0,gain=0.1,deconvolver='mtmfs',scales=[0,5,15,30],pbcor=False,weighting='briggs',robust=0.5,niter=500000,threshold='0.005mJy',cy
+          ⋮ cleniter=-1,interactive=False,usemask='user',mask='NGC3079_new.ms.ap3.mask',savemodel='none')
+Image Statistics
+Integrated Flux Density: −0.0101 Jy
+Peak Intensity: 7.183 mJy /beam
+Minimum Intensity: −4.347 mJy /beam
+Image RMS: 0.03596 mJy/ beam(35.96 μJy /beam)
+Median Absolute Deviation: 15.20 μJy /beam
+Remarks
+The Stokes Q image reaches an rms noise level of 35.96 μJy /beam
+The image is dominated by low-level polarized emission around the central source.
+The total integrated Stokes Q flux is close to zero (−0.010 Jy), which is expected since Stokes Q represents one component of linear polarization rather than total intensity.
+This image will be combined with the corresponding Stokes U image to derive the linear polarized intensity and polarization angle.
 
 
 
