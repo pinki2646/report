@@ -514,5 +514,26 @@ The image is dominated by low-level polarized emission around the central source
 The total integrated Stokes Q flux is close to zero (−0.010 Jy), which is expected since Stokes Q represents one component of linear polarization rather than total intensity.
 This image will be combined with the corresponding Stokes U image to derive the linear polarized intensity and polarization angle.
 
+CASA <133>: default(tclean)
 
+CASA <134>: tclean(vis='NGC3079_new.ms',datacolumn='corrected',imagename='NGC3079_new.ms.ap3_U',imsize=[5120,5120],cell='1arcsec',stokes='U',projection='SIN',specmode='mfs',nchan=-1,gr
+          ⋮ idder='widefield',wprojplanes=-1,pblimit=-1.0,gain=0.1,deconvolver='mtmfs',scales=[0,5,15,30],pbcor=False,weighting='briggs',robust=0.5,niter=500000,threshold='0.005mJy',cy
+          ⋮ cleniter=-1,interactive=False,usemask='user',mask='NGC3079_new.ms.ap3.mask',savemodel='none')
+
+CASA <135>: exportfits(imagename='NGC3079_new.ms.ap3_U.image.tt0',fitsimage='NGC3079_new.ms.ap3_U.fits',overwrite=True)
+
+CASA <136>: os.system("cp -r NGC3079_new.ms NGC3079_new.ms.ap3_U.ms")
+Out[136]: 0
+
+CASA <137>: imstat('NGC3079_new.ms.ap3_U.image.tt0')
+Out[137]:
+Stokes U Image Statistics:
+Peak Intensity      : 10.774 mJy beam⁻¹
+Integrated Flux     : -0.02898 Jy
+Image RMS           : 0.03451 mJy beam⁻¹
+Sigma               : 0.03451 mJy beam⁻¹
+Maximum Pixel       : 10.774 mJy beam⁻¹
+Minimum Pixel       : -3.495 mJy beam⁻¹
+Mean                : -3.80 × 10⁻⁸ Jy beam⁻¹
+Median              : -7.17 × 10⁻⁸ Jy beam⁻¹
 
