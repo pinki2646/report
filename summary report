@@ -537,3 +537,159 @@ Minimum Pixel       : -3.495 mJy beam⁻¹
 Mean                : -3.80 × 10⁻⁸ Jy beam⁻¹
 Median              : -7.17 × 10⁻⁸ Jy beam⁻¹
 
+CASA <142>: immath(imagename=['NGC3079_new.ms.ap3_Q.image.tt0','NGC3079_new.ms.ap3_U.image.tt0'],mode='poli',sigma='2.0e-5Jy/beam',outfile='NGC3079_new.ms.ap3_PI.image')
+Out[142]: True
+
+CASA <143>: immath(imagename=['NGC3079_new.ms.ap3_Q.image.tt0','NGC3079_new.ms.ap3_U.image.tt0'],mode='pola',sigma='2.0e-5Jy/beam',outfile='NGC3079_new.ms.ap3_PA.image')
+Out[143]: True
+
+CASA <144>: imhead('NGC3079_new.ms.ap3_PI.image')
+CASA <148>: ia.open('NGC3079_new.ms.ap3_PI.image')
+       ...: ia.calcmask(mask='NGC3079_new.ms.ap3_PI.image>8.5e-5',name='pimask')
+       ...: ia.done()
+Out[148]: True
+
+CASA <149>: ia.open('NGC3079_new.ms.ap3_Q.image.tt0')
+CASA <149>: 
+
+CASA <149>: ia.open('NGC3079_new.ms.ap3_Q.image.tt0')
+       ...: ia.maskhandler('copy',['NGC3079_new.ms.ap3_PI.image:pimask','polmask'])
+       ...: ia.maskhandler('set','polmask')
+       ...: ia.done()
+Out[149]: True
+
+CASA <150>: ia.open('NGC3079_new.ms.ap3_U.image.tt0')
+       ...: ia.maskhandler('copy',['NGC3079_new.ms.ap3_PI.image:pimask','polmask'])
+       ...: ia.maskhandler('set','polmask')
+       ...: ia.done()
+Out[150]: True
+
+CASA <151>: immath(imagename=['NGC3079_new.ms.ap3_Q.image.tt0','NGC3079_new.ms.ap3_U.image.tt0'],mode='pola',outfile='NGC3079_new.ms.ap3_PA_masked.image')
+Out[151]: True
+
+CASA <152>: 
+
+CASA <153>: exportfits(imagename='NGC3079_new.ms.ap3_PI.image',fitsimage='NGC3079_new.ms.ap3_PI.fits',overwrite=True)
+
+CASA <154>: exportfits(imagename='NGC3079_new.ms.ap3_PA_masked.image',fitsimage='NGC3079_new.ms.ap3_PA_masked.fits',overwrite=True)
+
+CASA <155>: !ls NGC3079_new.ms.ap3*.fits
+NGC3079_new.ms.ap3.fits  NGC3079_new.ms.ap3_PA_masked.fits  NGC3079_new.ms.ap3_PI.fits	NGC3079_new.ms.ap3_Q.fits  NGC3079_new.ms.ap3_U.fits
+
+CASA <156>: imstat('NGC3079_new.ms.ap3.image.tt0',box='300,300,700,700')
+Out[156]: 
+CASA <157>: imstat(
+       ...:     'NGC3079_new.ms.ap3.image.tt0',
+       ...:     box='50,50,300,300'
+       ...: )
+Out[157]:CASA <158>: imstat(
+       ...:     'NGC3079_new.ms.ap3.image.tt0',
+       ...:     box='4300,4300,5000,5000'
+       ...: )
+Out[158]:
+Polarization Analysis of NGC 3079 (GMRT Band-4, 664 MHz)
+
+1. Polarized Intensity (PI) Image Creation
+
+The polarized intensity image was created from Stokes Q and U images using:
+
+PI = sqrt(Q² + U²)
+
+CASA immath task with mode='poli' was used.
+
+Final image:
+NGC3079_new.ms.ap3_PI.image
+
+Beam size:
+5.97" × 5.07", PA = 20.65°
+
+Maximum polarized intensity:
+PImax = 11.14 mJy beam⁻¹
+
+Total polarized flux:
+SPI = 17.40 Jy
+
+
+2. Polarization Angle (PA) Image Creation
+
+The polarization angle was calculated using:
+
+PA = 0.5 × tan⁻¹(U/Q)
+
+CASA immath task with mode='pola' was used.
+
+Final image:
+NGC3079_new.ms.ap3_PA_masked.image
+
+
+3. Noise Estimation
+
+An off-source region (box = 300,300,700,700) was selected.
+
+Stokes Q RMS:
+σQ = 0.0168 mJy beam⁻¹
+
+Stokes U RMS:
+σU = 0.0167 mJy beam⁻¹
+
+Therefore:
+
+σQU ≈ 0.017 mJy beam⁻¹
+
+
+4. Polarization Masking
+
+A 5σ threshold was applied to remove low signal-to-noise polarization pixels.
+
+Threshold:
+
+5σ = 0.085 mJy beam⁻¹
+
+Mask applied:
+
+PI > 8.5 × 10⁻⁵ Jy beam⁻¹
+
+The same polarization mask was applied to Q and U images before creating the final PA map.
+
+
+5. Stokes I Noise Estimation
+
+Noise was measured from different off-source regions.
+
+Measured RMS values:
+
+Region 1:
+σI = 0.0495 mJy beam⁻¹
+
+Region 2:
+σI = 0.0411 mJy beam⁻¹
+
+Region 3:
+σI = 0.0562 mJy beam⁻¹
+
+Final Stokes I RMS:
+
+σI ≈ 0.04–0.06 mJy beam⁻¹
+
+
+6. Final Polarization Products
+
+Generated FITS files:
+
+- NGC3079_new.ms.ap3_PI.fits
+- NGC3079_new.ms.ap3_PA_masked.fits
+- NGC3079_new.ms.ap3_Q.fits
+- NGC3079_new.ms.ap3_U.fits
+
+
+7. Current Status
+
+✓ Stokes I, Q, U imaging completed  
+✓ Polarized intensity map created  
+✓ Polarization angle map created  
+✓ 5σ polarization mask applied  
+✓ FITS polarization products generated  
+
+
+Next step:
+Fractional polarization map (PI/I) and magnetic field orientation map (PA + 90°).
