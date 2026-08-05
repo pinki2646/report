@@ -693,3 +693,156 @@ Generated FITS files:
 
 Next step:
 Fractional polarization map (PI/I) and magnetic field orientation map (PA + 90°).
+CASA <23>: ia.open('NGC3079_new.ms.ap3_Q.image.tt0')
+      ...: ia.maskhandler('set','')
+      ...: ia.done()
+Out[23]: True
+
+CASA <24>: ia.open('NGC3079_new.ms.ap3_U.image.tt0')
+      ...: ia.maskhandler('set','')
+      ...: ia.done()
+Out[24]: True
+
+CASA <25>: ia.open('NGC3079_new.ms.ap3.image.tt0')
+      ...: ia.maskhandler('get')
+      ...: ia.done()
+Out[25]: True
+
+CASA <26>: ia.open('NGC3079_new.ms.ap3.image.tt0')
+Out[26]: True
+
+CASA <27>: ia.maskhandler('get')
+Out[27]: ['T']
+
+CASA <28>: ia.done()
+Out[28]: True
+
+CASA <29>: ia.open('NGC3079_new.ms.ap3.image.tt0')
+      ...: ia.maskhandler('set','')
+      ...: ia.done()
+Out[29]: True
+
+CASA <30>: ia.open('NGC3079_new.ms.ap3.image.tt0')
+      ...: ia.maskhandler('get')
+Out[30]: ['T']
+
+CASA <31>: imhead('NGC3079_new.ms.ap3.image.tt0')
+      ...: imhead('NGC3079_new.ms.ap3_Q.image.tt0')
+      ...: imhead('NGC3079_new.ms.ap3_U.image.tt0')
+Out[31]: 
+CASA <36>: imview(raster='NGC3079_new.ms.ap3_Q.image.tt0')
+CASA <37>: imview(raster='NGC3079_new.ms.ap3_U.image.tt0')
+ASA <38>: !ls -d NGC3079_new.ms.ap3_PI.image
+NGC3079_new.ms.ap3_PI.image
+
+CASA <39>: immath(
+      ...:     imagename=[
+      ...:         'NGC3079_new.ms.ap3_Q.image.tt0',
+      ...:         'NGC3079_new.ms.ap3_U.image.tt0'
+      ...:     ],
+      ...:     mode='poli',
+      ...:     sigma='1.71e-5Jy/beam',
+      ...:     outfile='NGC3079_new.ms.ap3_PI_Ricean.image'
+      ...: )
+Out[39]: True
+
+CASA <40>: imhead('NGC3079_new.ms.ap3_PI_Ricean.image')
+Out[40]: 
+CASA <41>: imstat('NGC3079_new.ms.ap3_PI_Ricean.image')
+Out[41]: 
+CASA <42>: subimPI='NGC3079_new.ms.ap3_PI_Ricean.image'
+      ...: 
+      ...: ia.open(subimPI)
+      ...: 
+      ...: ia.calcmask(
+      ...:     mask=subimPI+'>5.13e-5',
+      ...:     name='pimask3sigma'
+      ...: )
+      ...: 
+      ...: ia.done()
+2026-08-05 21:25:10	WARN	image::open (file src/tools/image/image_cmpt.cc, line 4208)	Another image is already open, closing first
+Out[42]: True
+
+CASA <43>: imhead('NGC3079_new.ms.ap3_PI_Ricean.image')
+Out[43]: 
+CASA <44>: ia.open('NGC3079_new.ms.ap3_Q.image.tt0')
+      ...: 
+      ...: ia.maskhandler(
+      ...:     'copy',
+      ...:     [
+      ...:         'NGC3079_new.ms.ap3_PI_Ricean.image:pimask3sigma',
+      ...:         'polithreshmask'
+      ...:     ]
+      ...: )
+      ...: 
+      ...: ia.maskhandler(
+      ...:     'set',
+      ...:     'polithreshmask'
+      ...: )
+      ...: 
+      ...: ia.done()
+Out[44]: True
+
+CASA <45>: ia.open('NGC3079_new.ms.ap3_U.image.tt0')
+      ...: 
+      ...: ia.maskhandler(
+      ...:     'copy',
+      ...:     [
+      ...:         'NGC3079_new.ms.ap3_PI_Ricean.image:pimask3sigma',
+      ...:         'polithreshmask'
+      ...:     ]
+      ...: )
+      ...: 
+      ...: ia.maskhandler(
+      ...:     'set',
+      ...:     'polithreshmask'
+      ...: )
+      ...: 
+      ...: ia.done()
+Out[45]: True
+
+CASA <46>: immath(
+      ...:     imagename=[
+      ...:         'NGC3079_new.ms.ap3_Q.image.tt0',
+      ...:         'NGC3079_new.ms.ap3_U.image.tt0'
+      ...:     ],
+      ...:     mode='pola',
+      ...:     outfile='NGC3079_new.ms.ap3_POLA_3sigma.image'
+      ...: )
+Out[46]: True
+
+CASA <47>: imhead('NGC3079_new.ms.ap3_POLA_3sigma.image')
+Out[47]: 
+CASA <48>: imstat('NGC3079_new.ms.ap3_POLA_3sigma.image')
+Out[48]
+CASA <54>: exportfits(
+      ...:     imagename='NGC3079_new.ms.ap3_PI_Ricean.image',
+      ...:     fitsimage='NGC3079_new.ms.ap3_PI_Ricean.fits',
+      ...:     overwrite=True
+      ...: )
+
+CASA <55>: exportfits(
+      ...:     imagename='NGC3079_new.ms.ap3_POLA_3sigma.image',
+      ...:     fitsimage='NGC3079_new.ms.ap3_POLA_3sigma.fits',
+      ...:     overwrite=True
+      ...: )
+CASA <59>: immath(
+      ...:     imagename=[
+      ...:         'NGC3079_new.ms.ap3_Q.image.tt0',
+      ...:         'NGC3079_new.ms.ap3_U.image.tt0'
+      ...:     ],
+      ...:     mode='poli',
+      ...:     sigma='0.0Jy/beam',
+      ...:     outfile='NGC3079_new.ms.ap3_PI_original.image'
+      ...: )
+Out[59]: True
+
+CASA <60>: exportfits(
+      ...:     imagename='NGC3079_new.ms.ap3_PI_original.image',
+      ...:     fitsimage='NGC3079_new.ms.ap3_PI_original.fits',
+      ...:     overwrite=True
+      ...: )
+
+CASA <61>: 
+
+
